@@ -1,0 +1,36 @@
+require"./primes"
+module SimpleRsa
+
+	class Wrapper
+		def initialize
+			p "wrapper initialized!"
+		end
+		
+		def get_primes_list
+			#primes
+			q,p=0			
+
+			entrophy = Random.new_seed
+			entr_index=rand(entrophy.to_s.split('').length-1)
+			if entrophy % entr_index = 0	
+				q=SMALL_PRIMES_G1.sample
+			else
+				q=SMALL_PRIMES_G2.sample
+			end	
+	
+		end 
+		
+		def get_primes_gen
+		
+		end
+	
+		def get_gropus
+			
+		end	
+		
+		def get_entrophy_number
+		
+		end
+	end
+
+end
