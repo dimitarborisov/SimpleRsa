@@ -27,25 +27,25 @@ module SimpleRsa
 		return [q,p]
 			
 	end 
-		
+	
+	
 	
 	#need a check for prime
-	def get_primes_gen(bits = 1024)
+	def get_primes_gen(bits = 512)
 			
-		result=0
-			
-		(0..bits-1).each do |i|
-			bit = Random.rand(2) << i
-			result= result | bit
+		
+		p=SimpleRsa::get_num(bits)
+		q=SimpleRsa::get_num(bits)
+		
+		while miller_rabin_test(p, 800) != true
+			p += 8
 		end
-			
-		#to be odd we want to be sure 0 bit is 1
-		odd=1
-		result= result | odd
 		
+		while miller_rabin_test(q, 800) != true
+			q += 8
+		end
 		
-		
-		return result
+		return p,q
 	end	
 		
 

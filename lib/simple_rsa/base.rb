@@ -9,17 +9,34 @@ module SimpleRsa
 			@priv_key = 0
 		end
 		
+		def [](num)
+			if num>1 || num<0
+				puts "Valid index 0 or 1"
+				return nil
+			end
+			if num == 0
+				return @pub_key
+			else
+				return @priv_key
+			end
+		end
+		
 		def get_keys
 			return [@pub_key, @priv_key]
 		end
 		
-		def gen_keys(bits = 0, p = 0, q = 0)
+		def gen_keys(bits = 0)
 			
 			if bits==0
 				
 				#get from already generated primes
 				p,q=SimpleRsa::get_primes_list
-			
+				
+			else
+				#get n/2 bit prime numbers
+				p,q=SimpleRsa::get_primes_gen
+			end
+				
 				#compute modulus
 				n=p*q
 			
@@ -37,12 +54,30 @@ module SimpleRsa
 				
 				@pub_key = Base64.encode64( [k, n, bits].to_json )
 				@priv_key = Base64.encode64( [d, n, bits].to_json )
-				
-			else
-				#if bits for key are given do prime generating
-			end
+			
 			
 			return [@pub_key, @priv_key]
+		end
+		
+		def clear_keys
+			@pub_key = 0
+			@priv_key = 0
+		end
+		
+		def write_keys(path = "keys")
+			
+			File.open(path, 'w') { |file| 
+				file.write(get_keys().to_json) 
+			}
+			
+		end
+		
+		def read_keys(path = "keys")
+			File.open(path, 'r') { |file| 
+				keys = file.read() 
+				@pub_key, @priv_key = JSON::parse(keys)
+			}
+		
 		end
 		
 	end
