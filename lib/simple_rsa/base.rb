@@ -21,6 +21,10 @@ module SimpleRsa
 			end
 		end
 		
+		def get_pub_key
+			return @pub_key
+		end
+		
 		def get_keys
 			return [@pub_key, @priv_key]
 		end
@@ -34,7 +38,7 @@ module SimpleRsa
 				
 			else
 				#get n/2 bit prime numbers
-				p,q=SimpleRsa::get_primes_gen
+				p,q=SimpleRsa::get_primes_gen(bits/2)
 			end
 				
 				#compute modulus
@@ -62,6 +66,14 @@ module SimpleRsa
 		def clear_keys
 			@pub_key = 0
 			@priv_key = 0
+		end
+		
+		def write_pub_key(path = "pub_key")
+			
+			File.open(path, 'w') { |file| 
+				file.write(get_pub_key())
+			}
+			
 		end
 		
 		def write_keys(path = "keys")

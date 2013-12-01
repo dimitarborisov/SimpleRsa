@@ -109,6 +109,9 @@ module SimpleRsa
 		
 		#Calculate blocksize by keysize (8 bit)
 		block_size=(keysize/8).floor
+		if block_size == 0
+			block_size = 1
+		end
 		
 		return data.scan(/.{1,#{block_size}}/)
 	end
