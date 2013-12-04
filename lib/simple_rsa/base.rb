@@ -21,6 +21,10 @@ module SimpleRsa
 			end
 		end
 		
+		def get_priv_key
+			return @priv_key
+		end
+		
 		def get_pub_key
 			return @pub_key
 		end
@@ -83,6 +87,19 @@ module SimpleRsa
 			}
 			
 		end
+		
+		def write_pub_string(path = "pub_key")
+			
+			key = JSON::parse(Base64.decode64(get_pub_key()))
+			
+			pub_string = "#{key[0]},#{key[1]},#{key[2]}"
+			pub_string = Base64.encode64(pub_string)
+			
+			File.open(path, 'w') { |file| 
+				file.write(pub_string)
+			}
+		end
+		
 		
 		def read_keys(path = "keys")
 			File.open(path, 'r') { |file| 
