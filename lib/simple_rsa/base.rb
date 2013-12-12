@@ -1,48 +1,38 @@
 module SimpleRsa
-	class Rsa
+	module KeyPair
+		extend self
 		
-		@pub_key
-		@priv_key
-		
-		def initialize()
-			@pub_key = 0
-			@priv_key = 0
-		end
-		
-		def [](num)
-			if num>1 || num<0
-				puts "Valid index 0 or 1"
-				return nil
-			end
-			if num == 0
-				return @pub_key
-			else
-				return @priv_key
-			end
-		end
-		
-		def get_priv_key
-			return @priv_key
-		end
-		
-		def get_pub_key
-			return @pub_key
-		end
-		
-		def get_keys
-			return [@pub_key, @priv_key]
-		end
-		
-		def gen_keys(bits = 0)
+		def load_keys(path = './', key_name = 'srsa_key')
+
+			File.open(path + key_name, 'r') { |file| 
+				
+				@priv_key = file.read()
 			
-			if bits==0
+			}
+
+			File.open(path + key_name + ".pub", 'r') { |file| 
+				
+				@pub_key = file.read()
+			
+			}
+
+			return SimpleRsa::Key_pair.new(@pub_key , @priv_key)
+		end
+		
+		def generate_keys(strategy = 'fast', length = 512)
+			
+			if strategy == 'fast'
 				
 				#get from already generated primes
 				p,q=SimpleRsa::get_primes_list
 				
-			else
+			elsif strategy == 'secure'
+				
 				#get n/2 bit prime numbers
-				p,q=SimpleRsa::get_primes_gen(bits/2)
+				p,q=SimpleRsa::get_primes_gen(length/2)
+			
+			else
+				return nil
 			end
 				
 				#compute modulus
@@ -59,18 +49,14 @@ module SimpleRsa
 			
 				#get idea of how big the key is
 				bits=SimpleRsa::get_bits(n)
-				
-				@pub_key = Base64.encode64( [k, n, bits].to_json )
-				@priv_key = Base64.encode64( [d, n, bits].to_json )
+
+				@pub_key = Base64.encode64("#{k},#{n},#{bits}")  #Base64.encode64( [k, n, bits].to_json )
+				@priv_key = Base64.encode64("#{d},#{n},#{bits}") #Base64.encode64( [d, n, bits].to_json )
 			
 			
-			return [@pub_key, @priv_key]
+			return SimpleRsa::Key_pair.new(@pub_key,@priv_key)
 		end
 		
-		def clear_keys
-			@pub_key = 0
-			@priv_key = 0
-		end
 		
 		def write_pub_key(path = "pub_key")
 			

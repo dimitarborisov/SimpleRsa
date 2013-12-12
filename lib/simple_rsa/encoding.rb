@@ -1,42 +1,36 @@
 module SimpleRsa
 	
-	def encrypt(text, key)
-		enc_key = JSON::parse(Base64.decode64(key))
-		p, r, keysize = enc_key
-		blocks = SimpleRsa::gen_blocks(text, keysize)
-		out = String.new
+	class Encryptor
 		
-		blocks.each do |block| 
-			if block
-				cryptblock = crypt_num(SimpleRsa::txt_to_num(block), p, r)
-				out << cryptblock.to_s
-				out <<  ":::"  
-			end
-		end
+		@key
 		
-		return Base64.encode64(out);
-	end
-	
-	def decrypt(code, key) 
-		enc_key = JSON::parse(Base64.decode64(key))
-		q, r, keysize = enc_key
-		code=Base64.decode64(code);
-		
-		blocks = code.split(":::")
-		out = String.new
+		def initialize(key)
+			
+			#p, r, keysize
+			@key = Base64.decode64(key)
+			@key = @key.split(',')
 
-		blocks.each do |block|
-			if block 
-				out << SimpleRsa::num_to_txt(crypt_num(block.to_i, q, r))
-			end
+			@key[0] = @key[0].to_i
+			@key[1] = @key[1].to_i
+			@key[2] = @key[2].to_i		
 		end
 		
-		return out;
-	end
+		def encrypt(text)
+			
+			blocks = SimpleRsa::gen_blocks(text, @key[2])
+			out = String.new
+		
+			blocks.each do |block| 
+				if block
+					cryptblock = SimpleRsa::crypt_num(SimpleRsa::txt_to_num(block), @key[0], @key[1])
+					out << cryptblock.to_s
+					out <<  ":::"  
+				end
+			end
+			
+			return Base64.encode64(out);
+		end
 	
-	def crypt_num(num, key, mod)
-		#This is where the encryption/decryption happens.
-		return SimpleRsa::modular_pow(num, key, mod);
 	end
-	
+
 end

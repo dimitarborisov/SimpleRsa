@@ -2,7 +2,13 @@ require "base64"
 require "json"
 
 module SimpleRsa
-		
+	
+	def crypt_num(num, key, mod)
+		#This is where the encryption/decryption happens.
+		return SimpleRsa::modular_pow(num, key, mod);
+	end
+	
+	
 	def modular_pow(base, exponent, modulus)
 		result = 1 
 		base = base % modulus
