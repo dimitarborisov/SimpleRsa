@@ -5,7 +5,7 @@ module SimpleRsa
 		#primes
 		q,p=0			
 			
-		#pseudo random actions for generating group for small prime
+		#pseudo random actions for generating group for small primes
 		entrophy = Random.new_seed
 			
 		if entrophy % 2 == 0	
@@ -24,7 +24,7 @@ module SimpleRsa
 			p=SimpleRsa::Primes::BIG_PRIMES_G2.sample.to_i
 		end	
 			
-		return [q,p]
+		[q,p]
 			
 	end 
 	
@@ -45,7 +45,7 @@ module SimpleRsa
 			q += 8
 		end
 		
-		return p,q
+		[p,q]
 	end	
 		
 

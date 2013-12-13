@@ -1,6 +1,3 @@
-require "base64"
-require "json"
-
 module SimpleRsa
 	
 	def crypt_num(num, key, mod)
@@ -19,7 +16,7 @@ module SimpleRsa
 			base = (base * base) % modulus
 		end 
 
-		return result 
+		result 
 	end
 	
 	def get_num(bits)
@@ -34,7 +31,7 @@ module SimpleRsa
 		odd=1
 		result= result | odd
 		
-		return result
+		result
 	end
 	
 	def get_bits(num)
@@ -45,7 +42,7 @@ module SimpleRsa
 			count += 1
 		end
 			
-		return count
+		count
 	end
 		
 	def get_co_prime(phi)
@@ -56,7 +53,7 @@ module SimpleRsa
 			k+=2
 		end
 			
-		return k
+		k
 	end
 		
 	def extended_euclid(k=3,phi=280)
@@ -82,44 +79,43 @@ module SimpleRsa
 		oldt += phi if oldt < 0 
 		olds += k if olds < 0
 			
-		return olds, oldt
 		#puts"Bezout coefficients:", olds, oldt
 		#puts "greatest common divisor:", oldr
 		#puts "quotients by the gcd:" , t, s
-
+		[olds, oldt]	
 	end
 	
-	def get_priv_key(k, phi)
-			
+	def get_priv_key(k, phi)	
 		d=1
 				
 		while((d * k) % phi != 1) do
 			d+=1
 		end
 			
-		return d
+		d
 	end
 
 	def get_gcd(a, b)
+		
 		while b!=0 do
 			m = a % b
 			a = b
 			b = m
 		end
 
-		return a
+		a
 	end
 	
 	#WORKING WITH TEXT
 	def gen_blocks(data, keysize=1)
-		
 		#Calculate blocksize by keysize (8 bit)
 		block_size=(keysize/8).floor
+		
 		if block_size == 0
 			block_size = 1
 		end
 		
-		return data.scan(/.{1,#{block_size}}/)
+		data.scan(/.{1,#{block_size}}/)
 	end
 	
 	
@@ -133,7 +129,7 @@ module SimpleRsa
 			result = (result*256) + str[n].ord;
 		end
 		
-		return result
+		result
 	end
 	
 	def num_to_txt(num)
@@ -141,12 +137,10 @@ module SimpleRsa
 		result = String.new
 		
 		while num > 0 do 
-			
 			result << (num%256).chr
 			num = num / 256
-		
 		end
-		return result;
+		result
 	end
 	
 	#PRIME CHECK
@@ -199,8 +193,7 @@ module SimpleRsa
 			return false
 		
 		end
-		
+
 		return true
-	end
-		
+	end	
 end
