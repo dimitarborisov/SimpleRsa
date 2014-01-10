@@ -20,23 +20,23 @@ module SimpleRsa
 	end
 	
 	def get_num(bits)
-		result=0
+		result = 0
 			
 		(0..bits-1).each do |i|
 			bit = Random.rand(2) << i
-			result= result | bit
+			result = result | bit
 		end
 			
 		#to be odd we want 0 bit to be 1
-		odd=1
-		result= result | odd
+		odd = 1
+		result = result | odd
 		
 		result
 	end
 	
 	def get_bits(num)
 			
-		count=0
+		count = 0
 		while num > 0 do
 			num = num >> 1
 			count += 1
@@ -47,10 +47,10 @@ module SimpleRsa
 		
 	def get_co_prime(phi)
 			
-		k=3
+		k = 3
 			
-		while(get_gcd(k,phi)!=1) do
-			k+=2
+		while(get_gcd(k,phi) !=1 ) do
+			k += 2
 		end
 			
 		k
@@ -63,17 +63,17 @@ module SimpleRsa
 		while r != 0 do
 			quotient = oldr / r
 	
-			temp=oldr
-			oldr=r 
-			r=temp-quotient *r
+			temp = oldr
+			oldr = r 
+			r = temp-quotient *r
 	
-			temp=olds
-			olds=s
-			s =temp-quotient *s
+			temp = olds
+			olds = s
+			s = temp-quotient * s
 	
-			temp= oldt
+			temp = oldt
 			oldt = t
-			t = temp-quotient *t     
+			t = temp-quotient * t     
 		end
 			
 		oldt += phi if oldt < 0 
@@ -86,10 +86,10 @@ module SimpleRsa
 	end
 	
 	def get_priv_key(k, phi)	
-		d=1
+		d = 1
 				
 		while((d * k) % phi != 1) do
-			d+=1
+			d += 1
 		end
 			
 		d
@@ -97,7 +97,7 @@ module SimpleRsa
 
 	def get_gcd(a, b)
 		
-		while b!=0 do
+		while b != 0 do
 			m = a % b
 			a = b
 			b = m
@@ -109,7 +109,7 @@ module SimpleRsa
 	#WORKING WITH TEXT
 	def gen_blocks(data, keysize=1)
 		#Calculate blocksize by keysize (8 bit)
-		block_size=(keysize/8).floor
+		block_size = (keysize/8).floor
 		
 		if block_size == 0
 			block_size = 1
@@ -125,7 +125,7 @@ module SimpleRsa
 		result = 0
 		n = str.length
 		while n > 0 do
-			n=n-1
+			n = n-1
 			result = (result*256) + str[n].ord;
 		end
 		
@@ -137,7 +137,7 @@ module SimpleRsa
 		result = String.new
 		
 		while num > 0 do 
-			result << (num%256).chr
+			result << (num % 256).chr
 			num = num / 256
 		end
 		result
@@ -164,7 +164,7 @@ module SimpleRsa
 			b_check = false
 			
 			#pick random integer a in the range [2,n - 2]
-			a = 2 + rand(n-4)
+			a = 2 + rand(n - 4)
 			
 			#compute modolus of a^d mod n
 			x = SimpleRsa::modular_pow(a,d,n)
@@ -175,15 +175,8 @@ module SimpleRsa
 		
 			for i in 1..(s-1) do
 				x = (x**2) % n
-				if x == 1
-					return false
-				end
-				
-				if x==(n-1)
-					b_check = true
-					break
-				end
-		
+				return false if x == 1
+				b_check = true and break if x == (n-1)
 			end
 			
 			if b_check == true 

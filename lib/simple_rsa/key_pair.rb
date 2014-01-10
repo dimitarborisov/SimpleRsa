@@ -21,6 +21,10 @@ module SimpleRsa
 			SimpleRsa::KeyPair.new(pub_key , priv_key)
 		end
 
+
+		#array 
+		#new SimpleRsaKeyPair
+		#SimpleRsaKeyPair->generate()
 		def self.generate(options = {})
 			default = { :strategy => 'secure', :length => 512 } 
 			options = default.merge(options)
@@ -35,11 +39,10 @@ module SimpleRsa
 				
 				#get n/2 bit prime numbers
 				p, q = SimpleRsa::get_primes_gen(length/2)
-			
+				puts "DEBUG: #{p} , #{q}"
 			else 
 				return nil
 			end
-				
 				#compute modulus
 				n = p * q
 			
@@ -47,10 +50,10 @@ module SimpleRsa
 				phi=(p-1)*(q-1)
 				
 				#get coprime number
-				k=SimpleRsa::get_co_prime(phi)
+				k = SimpleRsa::get_co_prime(phi)
 			
 				#get priv key
-				y,d=SimpleRsa::extended_euclid(k,phi) 
+				y,d = SimpleRsa::extended_euclid(k,phi) 
 			
 				#get idea of how big the key is
 				bits=SimpleRsa::get_bits(n)
