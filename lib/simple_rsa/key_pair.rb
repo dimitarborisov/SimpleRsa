@@ -39,7 +39,6 @@ module SimpleRsa
 				
 				#get n/2 bit prime numbers
 				p, q = SimpleRsa::get_primes_gen(length/2)
-				puts "DEBUG: #{p} , #{q}"
 			else 
 				return nil
 			end
