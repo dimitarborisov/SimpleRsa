@@ -39,24 +39,23 @@ module SimpleRsa
 			else 
 				return nil
 			end
-				#compute modulus
-				n = p * q
+			#compute modulus
+			n = p * q
 			
-				#calculate phi
-				phi=(p-1)*(q-1)
-				
-				#get coprime number
-				k = SimpleRsa::get_co_prime(phi)
+			#calculate phi
+			phi=(p-1)*(q-1)
 			
-				#get priv key
-				y,d = SimpleRsa::extended_euclid(k,phi) 
+			#get coprime number
+			k = SimpleRsa::get_co_prime(phi)
 			
-				#get idea of how big the key is
-				bits=SimpleRsa::get_bits(n)
+			#get priv key
+			y,d = SimpleRsa::extended_euclid(k,phi) 
+			
+			#get idea of how big the key is
+			bits=SimpleRsa::get_bits(n)
 
-				pub_key = Base64.encode64("#{k},#{n},#{bits}")  
-				priv_key = Base64.encode64("#{d},#{n},#{bits}")
-			
+			pub_key = Base64.encode64("#{k},#{n},#{bits}")  
+			priv_key = Base64.encode64("#{d},#{n},#{bits}")
 			
 			SimpleRsa::KeyPair.new(pub_key,priv_key)
 		end
