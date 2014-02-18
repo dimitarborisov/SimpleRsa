@@ -15,7 +15,6 @@ module SimpleRsa
 		end
 		
 		def encrypt(text)
-			
 			blocks = SimpleRsa::gen_blocks(text, @keysize)
 			out = String.new
 		

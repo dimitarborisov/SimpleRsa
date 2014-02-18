@@ -15,7 +15,6 @@ module SimpleRsa
 		end
 		
 		def decrypt(code) 
-		
 			code=Base64.decode64(code);
 			blocks = code.split(":::")
 			out = String.new
