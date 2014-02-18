@@ -57,8 +57,8 @@ module SimpleRsa
 				#get idea of how big the key is
 				bits=SimpleRsa::get_bits(n)
 
-				pub_key = Base64.encode64("#{k},#{n},#{bits}")  #Base64.encode64( [k, n, bits].to_json )
-				priv_key = Base64.encode64("#{d},#{n},#{bits}") #Base64.encode64( [d, n, bits].to_json )
+				pub_key = Base64.encode64("#{k},#{n},#{bits}")  
+				priv_key = Base64.encode64("#{d},#{n},#{bits}")
 			
 			
 			SimpleRsa::KeyPair.new(pub_key,priv_key)

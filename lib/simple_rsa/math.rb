@@ -29,9 +29,7 @@ module SimpleRsa
 			
 		#to be odd we want 0 bit to be 1
 		odd = 1
-		result = result | odd
-		
-		result
+		result | odd
 	end
 	
 	def get_bits(num)
@@ -146,9 +144,7 @@ module SimpleRsa
 	#PRIME CHECK
 	def miller_rabin_test(n = nil, accuracy = 1)
 		
-		if n == nil
-			return nil
-		end
+		return nil if n.nil?
 		
 		#compute prime-1 = 2^s * d
 		d = n - 1
