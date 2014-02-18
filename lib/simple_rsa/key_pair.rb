@@ -30,13 +30,10 @@ module SimpleRsa
 			options = default.merge(options)
 			length = options[:length]
 
-			if options[:strategy] == 'fast'
-				
+			if options[:strategy] == 'fast'				
 				#get from already generated primes
-				p, q = SimpleRsa::get_primes_list
-				
+				p, q = SimpleRsa::get_primes_list		
 			elsif options[:strategy] == 'secure'
-				
 				#get n/2 bit prime numbers
 				p, q = SimpleRsa::get_primes_gen(length/2)
 			else 
