@@ -10,9 +10,10 @@ module SimpleRsa
 		result = 1 
 		base = base % modulus
 		
-		until exponent.zero?
+		while exponent != 0
 			exponent.odd? and result = (result * base) % modulus
 			exponent >>= 1
+
 			base = (base * base) % modulus
 		end 
 
