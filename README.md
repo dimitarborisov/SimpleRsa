@@ -17,13 +17,15 @@ Or install it yourself as:
     $ gem install simple_rsa
 
 ## Usage
+###Quick start
+1. Create a key pair: 'keys = SimpleRsa::KeyPair.generate'
+2. Create an Encryptor with the public key: 'enc = SimpleRsa::Encryptor.new(keys.public)' 
+2.1. Encrypt something:  'm = enc.encrypt("hello world!")'
+3. Create a Decryptor with the private key: 'dec = SimpleRsa::Decryptor.new(keys.private)'
+3.1. Decrypt something: 'dec.decript(m)'
 
-TODO: Write usage instructions here
+###Slow start
+To Do
 
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+##Notice
+This gem is still not tested for vulnerabilities and correctness of the RSA implementation!
