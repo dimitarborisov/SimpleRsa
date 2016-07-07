@@ -1,6 +1,6 @@
 # SimpleRsa
 
-TODO: Write a gem description
+Simple implementation of RSA algorithm.
 
 ## Installation
 
@@ -18,11 +18,11 @@ Or install it yourself as:
 
 ## Usage
 ###Quick start
-1. Create a key pair: 'keys = SimpleRsa::KeyPair.generate'
-2. Create an Encryptor with the public key: 'enc = SimpleRsa::Encryptor.new(keys.public)' 
-2.1. Encrypt something:  'm = enc.encrypt("hello world!")'
-3. Create a Decryptor with the private key: 'dec = SimpleRsa::Decryptor.new(keys.private)'
-3.1. Decrypt something: 'dec.decript(m)'
+1. Create a key pair: `keys = SimpleRsa::KeyPair.generate`
+2. Create an Encryptor with the public key: `enc = SimpleRsa::Encryptor.new(keys.public)`
+2.1. Encrypt something:  `m = enc.encrypt("hello world!")`
+3. Create a Decryptor with the private key: `dec = SimpleRsa::Decryptor.new(keys.private)`
+3.1. Decrypt something: `dec.decript(m)`
 
 ###Slow start
 To Do
