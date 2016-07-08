@@ -25,6 +25,7 @@ Or install it yourself as:
  + Decrypt something: `dec.decript(m)`
 
 ###Slow start
+####KeyPair
 `SimpleRsa::KeyPair.generate(options = {})` returns a pair of keys where `option` is used for additional control 
 
 `options` includes `:strategy` and `:length`
@@ -35,8 +36,9 @@ Or install it yourself as:
 
 
 `:length` is the size of the key(it should be > 2). The prime number generation is pseudorandom so keys with `:length` > 1024 may take a long time depending on your processor.
-Default value is 512.
+ 
 
+    default = { :strategy => 'secure', :length => 512 } 
 
 to be continue...
 ##Notice
